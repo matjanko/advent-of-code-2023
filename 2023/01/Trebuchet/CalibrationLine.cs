@@ -2,17 +2,17 @@ namespace Trebuchet;
 
 internal class CalibrationLine
 {
-    public string Line { get; private set; }
+    private readonly string _line;
 
     public CalibrationLine(string line)
     {
-        Line = line;
+        _line = line;
     }
 
     public int GetCalibrationValue()
     {
-        var firstDigit = Line.FirstOrDefault(char.IsDigit).ToString();
-        var lastDigit = Line.LastOrDefault(char.IsDigit).ToString();
+        var firstDigit = _line.FirstOrDefault(char.IsDigit).ToString();
+        var lastDigit = _line.LastOrDefault(char.IsDigit).ToString();
         return int.Parse(firstDigit + lastDigit);
     }
 
@@ -25,59 +25,37 @@ internal class CalibrationLine
 
     private string FirstDigit()
     {
-        for (var i = 0; i < Line.Length; i++)
+        for (var i = 0; i < _line.Length; i++)
         {
-            if (char.IsDigit(Line[i]))
-            {
-                return Line[i].ToString();
-            }
+            if (char.IsDigit(_line[i])) { return _line[i].ToString(); }
+            if (i + 3 > _line.Length) { continue; }
 
-            if (i + 3 > Line.Length)
-            {
-                continue;
-            }
-
-            var value = Line.Substring(i, 3);
+            var value = _line.Substring(i, 3);
             switch (value)
             {
-                case "one":
-                    return "1";
-                case "two":
-                    return "2";
-                case "six":
-                    return "6";
+                case "one": return "1";
+                case "two": return "2";
+                case "six": return "6";
             }
 
-            if (i + 4 > Line.Length)
-            {
-                continue;
-            }
+            if (i + 4 > _line.Length) { continue; }
 
-            value = Line.Substring(i, 4);
+            value = _line.Substring(i, 4);
             switch (value)
             {
-                case "four":
-                    return "4";
-                case "five":
-                    return "5";
-                case "nine":
-                    return "9";
+                case "four": return "4";
+                case "five": return "5";
+                case "nine": return "9";
             }
 
-            if (i + 5 > Line.Length)
-            {
-                continue;
-            }
+            if (i + 5 > _line.Length) { continue; }
 
-            value = Line.Substring(i, 5);
+            value = _line.Substring(i, 5);
             switch (value)
             {
-                case "three":
-                    return "3";
-                case "seven":
-                    return "7";
-                case "eight":
-                    return "8";
+                case "three": return "3";
+                case "seven": return "7";
+                case "eight": return "8";
             }
         }
         return string.Empty;
@@ -85,108 +63,40 @@ internal class CalibrationLine
 
     private string LastDigit()
     {
-        for (var i = Line.Length - 1; i >= 0; i--)
+        for (var i = _line.Length - 1; i >= 0; i--)
         {
-            if (char.IsDigit(Line[i]))
-            {
-                return Line[i].ToString();
-            }
+            if (char.IsDigit(_line[i])) { return _line[i].ToString(); }
 
-            if (i - 3 < 0)
-            {
-                continue;
-            }
+            if (i - 3 < 0) { continue; }
 
-            var value = Line.Substring(i - 2, 3);
+            var value = _line.Substring(i - 2, 3);
             switch (value)
             {
-                case "one":
-                    return "1";
-                case "two":
-                    return "2";
-                case "six":
-                    return "6";
+                case "one": return "1";
+                case "two": return "2";
+                case "six": return "6";
             }
 
-            if (i - 4 < 0)
-            {
-                continue;
-            }
+            if (i - 4 < 0) { continue; }
 
-            value = Line.Substring(i - 3, 4);
+            value = _line.Substring(i - 3, 4);
             switch (value)
             {
-                case "four":
-                    return "4";
-                case "five":
-                    return "5";
-                case "nine":
-                    return "9";
+                case "four": return "4";
+                case "five": return "5";
+                case "nine": return "9";
             }
 
-            if (i - 5 < 0)
-            {
-                continue;
-            }
+            if (i - 5 < 0) { continue; }
 
-            value = Line.Substring(i - 4, 5);
+            value = _line.Substring(i - 4, 5);
             switch (value)
             {
-                case "three":
-                    return "3";
-                case "seven":
-                    return "7";
-                case "eight":
-                    return "8";
+                case "three": return "3";
+                case "seven": return "7";
+                case "eight": return "8";
             }
         }
         return string.Empty;
     }
-    // public void ConvertSpelledDigits()
-    // {
-    //     for (var i = 0; i < Line.Length; i++)
-    //     {
-    //         if (i + 3 > Line.Length)
-    //         {
-    //             continue;
-    //         }
-    //
-    //         var a = Line.Substring(i, 3);
-    //         Line = a switch
-    //         {
-    //             "one" => Line.Replace("one", "1"),
-    //             "two" => Line.Replace("two", "2"),
-    //             "six" => Line.Replace("six", "6"),
-    //             _ => Line
-    //         };
-    //
-    //         if (i + 4 > Line.Length)
-    //         {
-    //             continue;
-    //         }
-    //
-    //         var b = Line.Substring(i, 4);
-    //         Line = b switch
-    //         {
-    //             "four" => Line.Replace("four", "4"),
-    //             "five" => Line.Replace("five", "5"),
-    //             "nine" => Line.Replace("nine", "9"),
-    //             _ => Line
-    //         };
-    //
-    //         if (i + 5 > Line.Length)
-    //         {
-    //             continue;
-    //         }
-    //
-    //         var c = Line.Substring(i, 5);
-    //         Line = c switch
-    //         {
-    //             "three" => Line.Replace("three", "3"),
-    //             "seven" => Line.Replace("seven", "7"),
-    //             "eight" => Line.Replace("eight", "8"),
-    //             _ => Line
-    //         };
-    //     }
-    // }
 }
