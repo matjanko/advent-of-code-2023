@@ -14,15 +14,12 @@ public class Race
     public long FindPossibleWinnings()
     {
         var result = 0L;
-        var newDistance = 0L;
-        var remainingTime = 0L;
-        var boatSpeed = 0L;
 
         for (var holdButtonTime = 1; holdButtonTime < _time; holdButtonTime++)
         {
-            remainingTime = _time - holdButtonTime;
-            boatSpeed = holdButtonTime;
-            newDistance = remainingTime * boatSpeed;
+            var remainingTime = _time - holdButtonTime;
+            long boatSpeed = holdButtonTime;
+            var newDistance = remainingTime * boatSpeed;
 
             if (newDistance > _distance)
             {
