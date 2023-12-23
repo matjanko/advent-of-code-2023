@@ -4,13 +4,13 @@ internal class Almanac
 {
     private List<Seed> _seeds = new();
 
-    private List<string> _seedToSoil = new();
-    private List<string> _soilToFertilizer = new();
-    private List<string> _fertilizerToWater = new();
-    private List<string> _waterToLight = new();
-    private List<string> _lightToTemperature = new();
-    private List<string> _temperatureToHumidity = new();
-    private List<string> _humidityToLocation = new();
+    public List<string> _seedToSoil = new();
+    public List<string> _soilToFertilizer = new();
+    public List<string> _fertilizerToWater = new();
+    public List<string> _waterToLight = new();
+    public List<string> _lightToTemperature = new();
+    public List<string> _temperatureToHumidity = new();
+    public List<string> _humidityToLocation = new();
 
 
     public Almanac(IEnumerable<string> inputs)
@@ -30,22 +30,6 @@ internal class Almanac
                 .Select(x => new Seed(long.Parse(x)))
                 .ToList();
             break;
-        }
-    }
-
-    public void InitializeSeedsWithRange(IEnumerable<string> inputs)
-    {
-        foreach (var input in inputs)
-        {
-            if (!input.StartsWith("seeds: ")) continue;
-            var numbers = input.Replace("seeds: ", "").Split(" ").Select(long.Parse).ToArray();
-            for (var i = 0; i < numbers.Length; i++)
-            {
-                if (i % 2 == 0 || i == 0)
-                {
-                    _seeds.Add(new Seed(numbers[i], numbers[i + 1]));
-                }
-            }
         }
     }
 
